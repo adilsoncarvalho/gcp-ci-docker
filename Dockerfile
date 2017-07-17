@@ -4,12 +4,6 @@ LABEL maintainer "Adilson Carvalho <lc.adilson@gmail.com>"
 
 ENV CLOUDSDK_VERSION 161.0.0
 
-VOLUME /source
-VOLUME /gcloud-api-key.json
-
-RUN mkdir -p /source
-WORKDIR /source
-
 # Common dependencies
 
 RUN apk update && apk add curl py-pip
@@ -30,3 +24,9 @@ ENV PATH ${PATH}:/google-cloud-sdk/bin
 # Installing kubectl
 
 RUN gcloud components install kubectl -q
+
+# Installing our gcp-ci helper scripts
+
+RUN mkdir -p /opt/gcp-ci
+COPY ./gcp-ci /opt/gcp-ci
+ENV PATH ${PATH}:/opt/gcp-ci
