@@ -98,9 +98,12 @@ function debug {
 function log_and_run {
   log "==> $1"
 
-  $1
+  eval $1
 
-  error "ERROR when running ${COLOR_IRED}$1${COLOR_OFF}"
+  if [ $? -ne 0 ]; then
+    error "ERROR when running ${COLOR_IRED}$1${COLOR_OFF}"
+    exit 1
+  fi
 }
 
 ### ENVIRONMENT
