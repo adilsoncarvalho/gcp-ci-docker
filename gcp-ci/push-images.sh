@@ -6,8 +6,9 @@ info "==> Pushing images ($0)"
 
 check_environment 'GCLOUD_PROJECT CIRCLE_PROJECT_REPONAME CIRCLE_SHA1'
 
-if [ -z $(docker image | grep ci/built-image) ]; then
+if [ -z $(docker images | grep ci/built-image) ]; then
   error "ERROR: could not find image ${COLOR_IRED}ci/built${COLOR_RED}. Did you build it using ${COLOR_IRED}build-image.sh${COLOR_RED}?"
+  exit 1
 fi
 
 debug " -> Current branch: ${COLOR_IPURPLE}$CIRCLE_BRANCH"
