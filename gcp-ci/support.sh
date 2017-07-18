@@ -117,7 +117,11 @@ function check_environment {
       error "    x $VAR=...missing..."
       MISSING_ENVS="$MISSING_ENVS $VAR"
     else
-      info "    √ $VAR=$VAL"
+      if [ "GCLOUD_API_KEYFILE" = $VAL ]; then
+        info "    √ $VAR=secret"
+      else
+        info "    √ $VAR=$VAL"
+      fi
     fi
   done
 
